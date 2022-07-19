@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.FPS_GAMES;
+using Core.HelperFunctions;
 
 class Program
 {
@@ -12,49 +13,39 @@ class Program
 
 	static void HandleArguments(string[] args)
 	{
-		if(args.Length >= 3)
-		{
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine("Too many arguments!");
-
-			Console.ResetColor();
+		if(Helper.BadInputCheck(args))
 			return;
-		}
-		else if(args.Length == 0)
-		{
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.WriteLine("Too few arguments!");
-
-			Console.ResetColor();
-			return;
-		}
-
-
 
 		switch(args[0])
 		{
 			case "csgo":
 			{
-				float DPI;
-				if(!float.TryParse(args[1], out DPI))
-				{
-					Console.ForegroundColor = ConsoleColor.Red;
-					Console.WriteLine($"Bad Input: {args[1]}");
-					Console.ResetColor();
-					return;
-				}
+				float DPI = HandleSecondArg(args[1]);
+				Console.Write($"in-game sensitivity: ");
 
-				Console.WriteLine($"in-game sensitivity: {CSGO.InGameSens(DPI)}");
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.WriteLine($"{ CSGO.InGameSens(DPI) }");
+
+				Console.ResetColor();
 				return;
 			}
 
 			default:
-				{
-					Console.ForegroundColor = ConsoleColor.Red;
-					Console.WriteLine("Unknown Argument!");
-					Console.ResetColor();
-					return;
-				}
+			{
+				Helper.ErrorLog("Unknown arguments!");
+				return;
+			}
 		}
+	}
+
+	static float HandleSecondArg(string arg)
+	{
+		float DPI;
+		if(!float.TryParse(arg, out DPI))
+		{
+			Helper.ErrorLog($"Bad Input: {arg}");
+		}
+
+		return DPI;
 	}
 }
