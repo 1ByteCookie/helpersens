@@ -15,12 +15,15 @@ class Program
 	{
 		if(Helper.BadInputCheck(args))
 			return;
+		
+		float DPI = HandleSecondArg(args[1]);
+		if(DPI == 0)
+			return;
 
 		switch(args[0])
 		{
 			case "csgo":
 			{
-				float DPI = HandleSecondArg(args[1]);
 				Console.Write($"in-game sensitivity: ");
 
 				Console.ForegroundColor = ConsoleColor.Yellow;
@@ -40,7 +43,7 @@ class Program
 
 	static float HandleSecondArg(string arg)
 	{
-		float DPI;
+		float DPI = 0;
 		if(!float.TryParse(arg, out DPI))
 		{
 			Helper.ErrorLog($"Bad Input: {arg}");
