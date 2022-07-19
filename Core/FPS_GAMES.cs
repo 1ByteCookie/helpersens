@@ -10,4 +10,14 @@ namespace Core.FPS_GAMES
             return eDPI / DPI;
         }
     }
+
+    class Valorant
+    {
+        public static float eDPI = 288;
+
+        public static float InGameSens(float DPI)
+        {
+            return eDPI / DPI;
+        }
+    }
 }

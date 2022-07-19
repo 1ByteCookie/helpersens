@@ -33,6 +33,18 @@ class Program
 				return;
 			}
 
+			case "val":
+			{
+				Console.Write($"in-game sensitivity: ");
+
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.WriteLine($"{ Valorant.InGameSens(DPI) }");
+
+				Console.ResetColor();
+
+				return;
+			}
+
 			default:
 			{
 				Helper.ErrorLog("Unknown arguments!");
